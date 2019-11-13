@@ -1,0 +1,143 @@
+
+1.package randomplus;
+
+public class randomnum1 {
+	
+	static int a=0;		//记录加数
+	static int b=0;
+	static char d;			//记录随机符号
+	static int []c = new int[51];					//记录结果
+	public static void main(String[] args) {
+		
+		for(int i=1;i<=50;i++) {
+			a = (int) (Math.random()*100);		//随机生成两数
+			b = (int) (Math.random()*100);
+			if(((int)(Math.random()*10))%2==0) //如果是奇数则相加，如果是偶数则相减
+      {	
+				d = '-';
+			}
+			else {
+				d = '+';
+			}
+			if(d=='+') {
+				System.out.print(a+"+"+b+"="+"\t");		//输出算式
+				c[i]=a+b;
+			}
+			else if(d=='-') {
+				System.out.print(a+"-"+b+"="+"\t");
+				c[i]=a-b;
+			}
+			if(i%5==0) {
+				System.out.println();           //每五个数换行
+			}
+		}
+	
+		for(int i=1;i<=50;i++) {
+			System.out.println("第"+i+"道题的答案为："+c[i]);		//输出答案
+		}
+	}
+}
+
+
+
+
+
+
+
+
+2.（1）故事一：
+Random产生随机数，用数组表示一个算式
+a = (int) (Math.random()*100);		//产生两个随机加数
+b = (int) (Math.random()*100);
+System.out.print(a+"+"+b+"="+"\t");		//输出算式
+（2）故事二：
+控制加减法范围：
+if(c[i]>100) {
+					i--;
+					continue;
+			}
+if(c[i]<0) {
+					i--;
+					continue;
+			}
+保存结果：c[i]=a-b;	c[i]=a+b;
+整齐的显示算式：
+if(i%5==0) {
+				System.out.println();           //每五个数换行
+			}
+（3）故事三：
+加减法控制：
+用奇数偶数控制，可以做到很平均。
+if(((int)(Math.random()*100))%2==0) {	//如果是奇数，符号就是加，如果是偶数，符号就是减
+				d = '-';
+			}
+			else {
+				d = '+';
+			}
+没有重复算式：
+采用Set集合
+最终源代码：
+
+package randomplus;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class StochasticFormula {
+	static int RandomNum1;static int RandomNum2;		//记录随机数
+	static char Symbol;				//记录符号
+//	static String []d = new String[51];		//记录算式
+	static Set<String> set = new LinkedHashSet();		//记录无重复算式  LinkedHashSet插入顺序
+	static int []Result = new int[51];		//记录结果
+	public void FormulaSet() {	//产生随机数，并记录
+		for(;set.size()<50;) {
+			int i = set.size();			//记录个数
+			do {
+				RandomNum1 = (int)(Math.random()*100);
+				RandomNum2 = (int)(Math.random()*100);
+				}while((RandomNum1 + RandomNum2 > 100) || (RandomNum1 - RandomNum2 < 0));
+			if((int)(Math.random()*100)%2 == 0) {		//控制加减法
+				Symbol = '+';
+				set.add(RandomNum1+"+"+RandomNum2);
+				Result[i] = RandomNum1 + RandomNum2;
+			}
+			else {
+				Symbol = '-';
+				set.add(RandomNum1 + "-" + RandomNum2);
+				Result[i] = RandomNum1 - RandomNum2;
+			}
+			
+		}
+	}
+	
+	
+	public void OutputFormula() {		//输出算式
+		int i = 0;
+		for(Object object:set) {
+			i++;
+			System.out.print(object + "=" + "\t\t");
+			if(i % 5 == 0) {
+				System.out.println();
+			}
+		}
+	}
+	
+	
+  public void OutputResult() {			//输出结果
+		for(int i = 0;i < 50; i++ ) {
+			System.out.println("第" + (i + 1) + "道题答案为：" + Result[i]);
+		}
+	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+		StochasticFormula ran = new StochasticFormula();
+		ran.FormulaSet();
+		ran.OutputFormula();
+		System.out.println("\t\t\t\t"+"****参考答案****"+"\t\t\t\t");
+		ran.OutputResult();
+		
+	}
+}
