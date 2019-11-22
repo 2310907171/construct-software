@@ -1,1 +1,79 @@
 
+package Test1110;
+
+import java.util.Scanner;
+import java.util.Set;
+
+public class test1110 {
+		static int q1;
+		static int q2;
+		static int r1;
+		static int r2;	 
+		static int max;	
+		        	                   
+		public void Q1(){ 
+			         Scanner sc = new Scanner(System.in); 
+			         System.out.println("请输入第一个数："); 
+			         q1 = sc.nextInt();
+			         if(q1<0) {
+			        	 System.out.println("输入数值有误");
+			         }
+			         else {
+			        	 r1=q1;			        	 
+			         }
+		}
+			         
+		public void Q2(){ 
+					 Scanner sc = new Scanner(System.in);          
+			         System.out.println("请输入第二个数：");
+			         q2 = sc.nextInt();
+			         if(q2<0) {
+			        	 System.out.println("输入数值有误");
+			         }
+			         else {
+				         r2 = q2; 	        	 
+			         }
+		}
+		
+		
+		public void Compare(){ 
+					 System.out.println("最大值是：");
+			         if (r1>r2) {
+			        	 System.out.print(r1);
+			         }
+			         else if(r1<r2) {
+			        	 System.out.print(r2);
+			         }
+			         else  {			        
+			        	 System.out.print(r1 = r2);
+			         }
+			         System.out.println();
+			}
+		
+		
+		
+		
+
+		public void Outsum() {
+			int sum=r1+r2;
+			System.out.println("和为：");
+			System.out.print(sum);
+		}
+		
+		
+		
+		
+		public static void main(String[] args) {  
+			test1110 ran = new test1110();
+			ran.Q1(); 
+			ran.Q2();
+			if(q1>=0&&q2>=0){
+				ran.Compare();
+				ran.Outsum();
+				System.out.println();
+				System.out.println();
+				q1=0;
+				q2=0;
+			}
+		}
+}
